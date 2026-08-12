@@ -1,10 +1,10 @@
-import mongoose from "../Db/Conn";
-const { Banco } = mongoose;
+import mongoose from "../Db/Conn.js";
+const { Schema } = mongoose;
 const tarefaSchema = new Schema(
   {
     titulo: {
       type: String,
-      required: truem,
+      required: true,
     },
     descricao: {
       type: String,
