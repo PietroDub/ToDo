@@ -9,5 +9,6 @@ async function main() {
   }
 }
 
+main();
 // exporta oq fez no main, palavra reservada do mongoose
 export default mongoose;

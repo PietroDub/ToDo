@@ -16,10 +16,9 @@ export default class TarefaController {
       });
 
       const novaTarefa = await tarefa.save();
-      res
+      return res
         .status(200)
         .json({ message: "Tarefa inserida com sucesso", novaTarefa });
-      return;
     } catch (error) {
       return res
         .status(500)

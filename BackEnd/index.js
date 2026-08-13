@@ -9,7 +9,7 @@ const require = createRequire(import.meta.url);
 const swaggerDocument = require("./swagger-output.json");
 
 const app = express();
-const port = 3000;
+const port = 5173;
 
 // comunicação entre front e back usando JSON
 app.use(express.json());

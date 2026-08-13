@@ -6,7 +6,7 @@ const doc = {
         description: 'Documentação para testes automáticos do projeto'
     },
     host: 'localhost:5000',
-    basepath: '/ToDo',
+    basepath: '/',
 
 }
 
@@ -14,5 +14,5 @@ const doc = {
 const outputFile = "./swagger-output.json";
 
 // caminho pras rotas
-const routesFile = ["./Routes/routes.js"];
+const routesFile = ["./index.js"];
 swaggerAutogen()(outputFile, routesFile, doc);

@@ -3,7 +3,7 @@ import TarefaController from "../Controllers/TarefaController.js";
 
 const routes = new Router();
 
-routes.post("/create", TarefaController.Create);
-routes.get("/getAll", TarefaController.GetAll);
+routes.post("/", TarefaController.Create);
+routes.get("/", TarefaController.GetAll);
 
 export default routes;
