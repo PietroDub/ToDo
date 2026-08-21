@@ -3,6 +3,7 @@ import {Routes, Route} from "react-router-dom";
 import TodoForm from "./Pages/TodoForm";
 import TodoList from "./Pages/TodoList";
 import logoTodo from './assets/logo-todo.png';
+import TodoEdit from './Pages/TodoEdit';
 export default function App() {
   return (
     <div className='min-h-screen bg-gray-50 p-6'>
@@ -16,8 +17,8 @@ export default function App() {
       <main className='max-w-3xl mx-auto bg-white rouded-lg shadow p-6'>
         <Routes>
           <Route path="/" element={<TodoList />}/>
-         
           <Route path="/new" element={<TodoForm />}/>
+          <Route path='/tarefas/:id' element={<TodoEdit />}/>
         </Routes>
       </main>
     </div>
