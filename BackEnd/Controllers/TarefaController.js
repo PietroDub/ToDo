@@ -42,4 +42,32 @@ export default class TarefaController {
         .json({ message: "Erro interno ao buscar tarefas!", error });
     }
   }
+
+  static async Update(rec, res){
+    const { id } = req.params;
+    const { titulo, descricao, dataLimite, situacao } = req.body;
+    if(!titulo, !descricao, !dataLimite, !situacao){
+        return res.status(422).json({ message: "Erro nos dados enviados" });
+    }
+    try{
+       const newTarefa = await Tarefa.findByIdAndUpdate(
+        id, {
+          titulo,
+          descricao,
+          dataLimite,
+          situacao,
+        },
+        {new: true} //retorna a tarefa depois de atualizar
+      )
+      
+      return res.status(200).json({
+          message: "Tarefa atualizada com sucesso!",
+          newTarefa
+        });
+    } catch (error){
+        return res.status(500).json({
+          message: "Erro ao atualizar tarefa!"
+        })
+    }
+  }
 }

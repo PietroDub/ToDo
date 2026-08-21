@@ -5,5 +5,6 @@ const routes = new Router();
 
 routes.post("/", TarefaController.Create);
 routes.get("/", TarefaController.GetAll);
+routes.put("/", TarefaController.Update);
 
 export default routes;
