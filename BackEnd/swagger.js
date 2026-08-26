@@ -15,4 +15,7 @@ const outputFile = "./swagger-output.json";
 
 // caminho pras rotas
 const routesFile = ["./index.js"];
+
+const endpointsFiles = ["./Routes/tarefa.routes.js", 
+    "./Routes/usuario.routes.js"];
 swaggerAutogen()(outputFile, routesFile, doc);
