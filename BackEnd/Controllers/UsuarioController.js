@@ -87,4 +87,22 @@ export default class UsuarioController {
         .json({ message: "Erro ao Fazer login.", error });
     }
   }
+  static async Profile (req, res){
+
+  }
+
+  static async getAllExceptionLogged(req, res) {
+    try {
+      const usuarioLogado = req.user.id;
+      const usuarios = await Usuario.find({_id:{$ne:usuarioLogado}})
+      .select("nome")
+      .sort({nome: 1});
+
+      return res.status(200).json(usuarios);
+    } catch(error){
+      return res
+      .status(500)
+        .json({ message: "Erro ao Fazer login.", error });
+    }
+  }
 }

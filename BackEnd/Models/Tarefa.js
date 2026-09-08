@@ -18,6 +18,15 @@ const tarefaSchema = new Schema(
       type: String,
       required: true,
     },
+    criadoPor: {
+      type: Schema.Types.ObjectId,
+      ref: "Usuario",
+      required: true
+    },
+    participam: [{
+      type: Schema.Types.ObjectId,
+      ref: "Usuario"
+    }]
   },
   { timestamps: true },
 );

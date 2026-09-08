@@ -3,7 +3,9 @@ import { Types } from "mongoose";
 
 export default class TarefaController {
   static async Create(req, res) {
-    const { titulo, descricao, dataLimite, situacao } = req.body;
+    const { titulo, descricao, dataLimite, situacao, participam } = req.body;
+    const userLogado = req.user.id;
+
     if (!titulo || !descricao || !dataLimite || !situacao) {
       return res.status(422).json({ message: "Erro nos dados enviados" });
     }
@@ -13,12 +15,23 @@ export default class TarefaController {
         descricao,
         dataLimite,
         situacao,
+        criadoPor: usuarioLogado,
+        participam: Array.isArray(participam)
+          ? participam
+          : participam
+            ? [participam]
+            : [],
       });
 
       const novaTarefa = await tarefa.save();
+
+      const tarefaPopulada = await Tarefa.findById(novaTarefa._id)
+        .populate("criadoPor", "nome email")
+        .populate("participam", "nome email");
+
       return res
         .status(200)
-        .json({ message: "Tarefa inserida com sucesso", novaTarefa });
+        .json({ message: "Tarefa inserida com sucesso", novaTarefa:tarefaPopulada });
     } catch (error) {
       return res
         .status(500)
@@ -27,15 +40,25 @@ export default class TarefaController {
   }
 
   static async GetAll(req, res) {
+    const usuarioLogado = req.user.id;
     try {
-      const tarefas = await Tarefa.find();
+      const tarefas = await Tarefa.find({
+        $or:[
+          {criadoPor:usuarioLogado},
+          {participam: usuarioLogado}
+        ]
+      })
+      .populate("CriadoPor", "nome")
+      .populate("participam", "nome")
+      .sort({ createdAt: -1 });
+      
       if (tarefas) {
         return res
           .status(200)
           .json({ message: "Buscar tarefas com sucesso", tarefas });
       } else {
         return res.status(204).json({ message: "Sem tarefas ainda" });
-      }
+      } 
     } catch (error) {
       return res
         .status(500)
@@ -95,12 +118,12 @@ export default class TarefaController {
     }
   }
 
-  static async Delete(req, res){
-    const {id} = req.params;
-    if (!id ){
-        return res.status(422).json({ message: "Erro no id enviado" });
+  static async Delete(req, res) {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(422).json({ message: "Erro no id enviado" });
     }
-    try{
+    try {
       const deleted_tarefa = await Tarefa.Delete(id);
 
       if (!deleted_tarefa) {
@@ -113,8 +136,7 @@ export default class TarefaController {
         message: "Tarefa deletada com sucesso!",
         deleted_tarefa,
       });
-
-    } catch( error ){
+    } catch (error) {
       return res.status(500).json({
         message: "Erro ao deletar tarefa!",
       });
