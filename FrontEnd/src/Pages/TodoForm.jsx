@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createTodo } from "../api/Todo.jsx";
-import { getUsers } from "../api/Todo.jsx"; // ou seu arquivo de API
+import { createTodo } from "../api.js";
+import { getUsersExceptLogged } from "../api.js"; // ou seu arquivo de API
 
 export default function TodoForm() {
   const [titulo, setTitulo] = useState("");
@@ -19,7 +19,7 @@ export default function TodoForm() {
     async function fetchUsuarios() {
       try {
         setLoadingUsuarios(true);
-        const res = await getUsers();
+        const res = await getUsersExceptLogged();
         const lista = res?.data?.usuarios || [];
         
         // Garante que só seta se for realmente um Array

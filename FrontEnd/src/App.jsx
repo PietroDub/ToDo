@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
-import {
-  Routes,
-  Route,
-  Link,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
 
 import LandingPage from "./Pages/LandingPage";
 import TodoList from "./Pages/TodoList";
 import Login from "./Pages/Login";
 import TodoForm from "./Pages/TodoForm";
 import TodoEdit from "./Pages/TodoEdit";
+import Register from "./Pages/Register";
 
 import logoTodo from "./assets/logo-todo.png";
-import { logout, getProfile } from "./api/Todo.jsx";
+import { logout, getProfile } from "./api.js";
+import ForgotPassword from "./Pages/ForgotPassword.jsx";
+import ResetPassword from "./Pages/ResetPassword.jsx";
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -73,15 +70,12 @@ export default function App() {
       <Route
         path="/"
         element={
-          isAuthenticated ? (
-            <Navigate to="/todos" replace />
-          ) : (
-            <LandingPage />
-          )
+          isAuthenticated ? <Navigate to="/todos" replace /> : <LandingPage />
         }
       />
 
       {/* Layout interno da aplicação */}
+
       <Route
         path="/*"
         element={
@@ -89,11 +83,7 @@ export default function App() {
             <header className="mx-auto mb-8 max-w-3xl">
               <nav className="flex items-center justify-between">
                 <Link to={isAuthenticated ? "/todos" : "/"}>
-                  <img
-                    src={logoTodo}
-                    alt="Logo ToDo"
-                    className="h-20 w-auto"
-                  />
+                  <img src={logoTodo} alt="Logo ToDo" className="h-20 w-auto" />
                 </Link>
 
                 <div className="flex items-center gap-4">
@@ -147,6 +137,17 @@ export default function App() {
                 />
 
                 <Route
+                  path="/register"
+                  element={
+                    isAuthenticated ? (
+                      <Navigate to="/todos" replace />
+                    ) : (
+                      <Register />
+                    )
+                  }
+                />
+
+                <Route
                   path="/todos"
                   element={
                     isAuthenticated ? (
@@ -179,14 +180,24 @@ export default function App() {
                   }
                 />
 
+                <Route
+                  path="/forgot-password"
+                  element={
+                    isAuthenticated ? (
+                      <Navigate to="/todos" replace />
+                    ) : (
+                      <ForgotPassword />
+                    )
+                  }
+                />
+
+                <Route path="/reset-password" element={<ResetPassword />} />
+
                 {/* Qualquer endereço desconhecido */}
                 <Route
                   path="*"
                   element={
-                    <Navigate
-                      to={isAuthenticated ? "/todos" : "/"}
-                      replace
-                    />
+                    <Navigate to={isAuthenticated ? "/todos" : "/"} replace />
                   }
                 />
               </Routes>

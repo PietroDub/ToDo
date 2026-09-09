@@ -1,4 +1,4 @@
-import { getTodos } from "../../api";
+import { getTodos } from "../api";
 import React,{useEffect, useState} from "react";
 import TodoItem from "../Components/TodoItem";
 import { Link } from "react-router-dom";

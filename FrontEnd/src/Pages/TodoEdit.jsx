@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getTodo, updateTodo } from "../../api";
+import { getTodo, updateTodo } from "../api";
 
 export default function TodoEdit() {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../api/Todo.jsx";
+import { login } from "../api.js";
 
 export default function Login({ onLoginSuccess }) {
   const [email, setEmail] = useState("");
@@ -78,7 +78,7 @@ export default function Login({ onLoginSuccess }) {
 
       <div className="mt-5 text-center pt-2">
         <Link
-          to="/forgot"
+          to="/forgot-password"
           className="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
         >
           Esqueci a senha

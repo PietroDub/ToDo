@@ -4,8 +4,8 @@ import UserMiddleware from "../Middleware/UserMiddleware.js";
 
 const usuarioRoutes = Router();
 
-usuarioRoutes.post("/", UsuarioController.registrarUsuario);
-usuarioRoutes.post("/", UsuarioController.LoginUsuario);
+usuarioRoutes.post("/register", UsuarioController.registrarUsuario);
+usuarioRoutes.post("/login", UsuarioController.LoginUsuario);
 usuarioRoutes.post("/logout", UsuarioController.logout);
 usuarioRoutes.post("/resetPassword", UsuarioController.resetPassword);
 usuarioRoutes.post("/forgotPassword", UsuarioController.forgotPassword);
